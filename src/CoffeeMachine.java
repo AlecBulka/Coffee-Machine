@@ -146,3 +146,51 @@ public class CoffeeMachine {
                 break;
         }
     }
+
+    private void fill() {
+        switch (this.state) {
+            case READY:
+                System.out.print("Write how many ml of water do you want to add: ");
+                this.state = State.WATER_INPUT;
+                break;
+            case WATER_INPUT:
+                this.water += Integer.parseInt(this.input);
+                System.out.print("Write how many ml of milk do you want to add: ");
+                this.state = State.MILK_INPUT;
+                break;
+            case MILK_INPUT:
+                this.milk += Integer.parseInt(this.input);
+                System.out.print("Write how many grams of coffee beans do you want to add: ");
+                this.state = State.BEANS_INPUT;
+                break;
+            case BEANS_INPUT:
+                this.beans += Integer.parseInt(this.input);
+                System.out.print("Write how many disposable cups of coffee do you want to add: ");
+                this.state = State.CUPS_INPUT;
+                break;
+            case CUPS_INPUT:
+                this.cups += Integer.parseInt(this.input);
+                ready();
+                break;
+            default:
+                System.out.println("Unknown fill state");
+                ready();
+                break;
+        }
+    }
+
+    private void take() {
+        System.out.println("I gave you $" + this.money);
+        this.money = 0;
+        ready();
+    }
+
+    private void printRemaining() {
+        System.out.println("The coffee machine has:");
+        System.out.println(this.water + " of water");
+        System.out.println(this.milk + " of milk");
+        System.out.println(this.beans + " of coffee beans");
+        System.out.println(this.cups + " of disposable cups");
+        System.out.println("$" + this.money + " of money");
+        ready();
+    }
